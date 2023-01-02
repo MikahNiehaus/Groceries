@@ -9,6 +9,6 @@ namespace groceriesBE
             : base(options)
         {
         }
-        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Groceries> Groceries { get; set; }
     }
 }

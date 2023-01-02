@@ -5,13 +5,12 @@ using System.Xml.Linq;
 
 namespace groceriesBE.Controllers
 {
+    [Route("api/groceries")]
     [ApiController]
-    [Route("[controller]")]
     public class GroceriesController : ControllerBase
     {
-
         private static readonly string[] Food = new[]
-        {
+   {
         "Meat", "Bread", "Chilly", "Apples"
             };
         private static readonly string[] Notes = new[]
@@ -19,7 +18,74 @@ namespace groceriesBE.Controllers
             "it tastes good", "it is ok", String.Empty,
         };
 
-            private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IDataRepository<Groceries> _dataRepository;
+        public GroceriesController(IDataRepository<Groceries> dataRepository)
+        {
+            _dataRepository = dataRepository;
+        }
+        // GET: api/Groceries
+        [HttpGet]
+        public IActionResult Get()
+        {
+            IEnumerable<Groceries> groceries = _dataRepository.GetAll();
+            return Ok(groceries);
+        }
+        // GET: api/Groceries/5
+        [HttpGet("{id}", Name = "Get")]
+        public IActionResult Get(long id)
+        {
+            Groceries groceries = _dataRepository.Get(id);
+            if (groceries == null)
+            {
+                return NotFound("The Groceries record couldn't be found.");
+            }
+            return Ok(groceries);
+        }
+        // POST: api/Groceries
+        [HttpPost]
+        public IActionResult Post([FromBody] Groceries groceries)
+        {
+            if (groceries == null)
+            {
+                return BadRequest("Groceries is null.");
+            }
+            _dataRepository.Add(groceries);
+            return CreatedAtRoute(
+                  "Get",
+                  new { Id = groceries.GroceriesId },
+                  groceries);
+        }
+        // PUT: api/Groceries/5
+        [HttpPut("{id}")]
+        public IActionResult Put(long id, [FromBody] Groceries groceries)
+        {
+            if (groceries == null)
+            {
+                return BadRequest("Groceries is null.");
+            }
+            Groceries groceriesToUpdate = _dataRepository.Get(id);
+            if (groceriesToUpdate == null)
+            {
+                return NotFound("The Groceries record couldn't be found.");
+            }
+            _dataRepository.Update(groceriesToUpdate, groceries);
+            return NoContent();
+        }
+        // DELETE: api/Groceries/5
+        [HttpDelete("{id}")]
+        public IActionResult Delete(long id)
+        {
+            Groceries groceries = _dataRepository.Get(id);
+            if (groceries == null)
+            {
+                return NotFound("The Groceries record couldn't be found.");
+            }
+            _dataRepository.Delete(groceries);
+            return NoContent();
+        }
+
+
 
         public GroceriesController(ILogger<WeatherForecastController> logger)
         {
@@ -27,7 +93,7 @@ namespace groceriesBE.Controllers
         }
 
         [HttpGet(Name = "GetGreoceriesTest")]
-        public IEnumerable<Groceries> Get()
+        public IEnumerable<Groceries> GetTest()
         {
             Random random = new Random();
             return Enumerable.Range(1, Food.Length).Select(index => new Groceries
@@ -38,79 +104,9 @@ namespace groceriesBE.Controllers
             })
        .ToArray();
 
-           
-        }
 
-        [Route("api/groceriers")]
-        [ApiController]
-        public class GroceriersController : ControllerBase
-        {
-            private readonly IDataRepository<Groceriers> _dataRepository;
-            public GroceriersController(IDataRepository<Groceriers> dataRepository)
-            {
-                _dataRepository = dataRepository;
-            }
-            // GET: api/Groceriers
-            [HttpGet]
-            public IActionResult Get()
-            {
-                IEnumerable<Groceriers> groceriers = _dataRepository.GetAll();
-                return Ok(groceriers);
-            }
-            // GET: api/Groceriers/5
-            [HttpGet("{id}", Name = "Get")]
-            public IActionResult Get(long id)
-            {
-                Groceriers groceriers = _dataRepository.Get(id);
-                if (groceriers == null)
-                {
-                    return NotFound("The Groceriers record couldn't be found.");
-                }
-                return Ok(groceriers);
-            }
-            // POST: api/Groceriers
-            [HttpPost]
-            public IActionResult Post([FromBody] Groceriers groceriers)
-            {
-                if (groceriers == null)
-                {
-                    return BadRequest("Groceriers is null.");
-                }
-                _dataRepository.Add(groceriers);
-                return CreatedAtRoute(
-                      "Get",
-                      new { Id = groceriers.GroceriersId },
-                      groceriers);
-            }
-            // PUT: api/Groceriers/5
-            [HttpPut("{id}")]
-            public IActionResult Put(long id, [FromBody] Groceriers groceriers)
-            {
-                if (groceriers == null)
-                {
-                    return BadRequest("Groceriers is null.");
-                }
-                Groceriers groceriersToUpdate = _dataRepository.Get(id);
-                if (groceriersToUpdate == null)
-                {
-                    return NotFound("The Groceriers record couldn't be found.");
-                }
-                _dataRepository.Update(groceriersToUpdate, groceriers);
-                return NoContent();
-            }
-            // DELETE: api/Groceriers/5
-            [HttpDelete("{id}")]
-            public IActionResult Delete(long id)
-            {
-                Groceriers groceriers = _dataRepository.Get(id);
-                if (groceriers == null)
-                {
-                    return NotFound("The Groceriers record couldn't be found.");
-                }
-                _dataRepository.Delete(groceriers);
-                return NoContent();
-            }
         }
     }
+
 }
 
