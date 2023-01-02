@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\grayw\\OneDrive\\Code\\prj\\groceries\\groceriesBE\\groceriesBE\\groceriesBE.csproj": {}
+    "C:\\Users\\grayw\\OneDrive\\Code\\prj\\Groceries\\groceriesBE\\groceriesBE\\groceriesBE.csproj": {}
   },
   "projects": {
-    "C:\\Users\\grayw\\OneDrive\\Code\\prj\\groceries\\groceriesBE\\groceriesBE\\groceriesBE.csproj": {
+    "C:\\Users\\grayw\\OneDrive\\Code\\prj\\Groceries\\groceriesBE\\groceriesBE\\groceriesBE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\grayw\\OneDrive\\Code\\prj\\groceries\\groceriesBE\\groceriesBE\\groceriesBE.csproj",
+        "projectUniqueName": "C:\\Users\\grayw\\OneDrive\\Code\\prj\\Groceries\\groceriesBE\\groceriesBE\\groceriesBE.csproj",
         "projectName": "groceriesBE",
-        "projectPath": "C:\\Users\\grayw\\OneDrive\\Code\\prj\\groceries\\groceriesBE\\groceriesBE\\groceriesBE.csproj",
+        "projectPath": "C:\\Users\\grayw\\OneDrive\\Code\\prj\\Groceries\\groceriesBE\\groceriesBE\\groceriesBE.csproj",
         "packagesPath": "C:\\Users\\grayw\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\grayw\\OneDrive\\Code\\prj\\groceries\\groceriesBE\\groceriesBE\\obj\\",
+        "outputPath": "C:\\Users\\grayw\\OneDrive\\Code\\prj\\Groceries\\groceriesBE\\groceriesBE\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -44,6 +44,14 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"
